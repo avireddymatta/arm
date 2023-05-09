@@ -1,0 +1,192 @@
+npx prisma init --datasource-provider
+
+npx prisma db pull
+
+npx prisma migrate dev --name somenameofmigration
+
+npx prisma format ( fixes any model issues in schema.prisma)
+
+model ApplicationUser {
+  Id                        Int                         @id(map: "PK__ApplicationUser__Id") @default(autoincrement())
+  CompanyId                 Int
+  UserName                  String                      @db.VarChar(256)
+  FirstName                 String                      @db.VarChar(256)
+  LastName                  String                      @db.VarChar(256)
+  MiddleName                String?                     @db.VarChar(256)
+  MobileNumber              String                      @db.VarChar(50)
+  Gender                    String                      @db.VarChar(6)
+  DateOfBirth               DateTime                    @db.DateTime
+  BloodGroup                String                      @db.VarChar(3)
+  Address1                  String                      @db.VarChar(700)
+  Address2                  String?                     @db.VarChar(700)
+  City                      String?                     @db.VarChar(100)
+  State                     String?                     @db.VarChar(100)
+  PostalCode                Int?
+  Country                   String?                     @db.VarChar(100)
+  CompanyMaster             CompanyMaster               @relation(fields: [CompanyId], references: [Id], onUpdate: NoAction, map: "FK_ApplicationUser_CompanyId")
+  ApplicationUserMembership ApplicationUserMembership[]
+
+  @@unique([CompanyId, UserName], map: "UQ_ApplicationUser_CompanyId_UserName")
+}
+
+model ApplicationUserMembership {
+  Id                      Int             @id(map: "PK__ApplicationUserMembership__Id") @default(autoincrement())
+  AppilcationUserId       Int
+  IsActive                Boolean         @default(false, map: "DF__Applicati__IsAct__68487DD7")
+  Password                String          @db.NVarChar(250)
+  PasswordSalt            String          @db.NVarChar(250)
+  SecurityQuestion        String?         @db.VarChar(500)
+  SecurityPassword        String?         @db.VarChar(500)
+  FirstTimeLogIn          Boolean         @default(true, map: "DF__Applicati__First__693CA210")
+  LockedOut               Boolean         @default(false, map: "DF__Applicati__Locke__6A30C649")
+  LastLoginDate           DateTime?       @db.DateTime
+  LastPasswordChangedDate DateTime?       @db.DateTime
+  LastLockOutDate         DateTime?       @db.DateTime
+  ApplicationUser         ApplicationUser @relation(fields: [AppilcationUserId], references: [Id], onUpdate: NoAction, map: "FK_ApplicationUserMembership_UserId")
+}
+
+model CompanyDepartmentMaster {
+  Id              Int              @id(map: "PK__CompanyD__3214EC07D149D147") @default(autoincrement())
+  CompanyMasterId Int
+  DepartmentName  String           @db.VarChar(256)
+  Description     String?          @db.VarChar(500)
+  Created         DateTime         @default(now(), map: "DF__CompanyDe__Creat__38996AB5") @db.DateTime
+  CreatedBy       String           @db.VarChar(256)
+  LastModified    DateTime?        @db.DateTime
+  LastModifiedBy  String?          @db.VarChar(256)
+  CompanyMaster   CompanyMaster    @relation(fields: [CompanyMasterId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_CompanyDepartmentMaster_CompanyMaster")
+  EmployeeMaster  EmployeeMaster[]
+
+  @@unique([DepartmentName, CompanyMasterId], map: "UQ_CompanyDepartmentMaster_DepartmentName_CompanyId")
+}
+
+model CompanyDesignationsMaster {
+  Id              Int              @id(map: "PK__CompanyD__3214EC0750B9EB2E") @default(autoincrement())
+  CompanyMasterId Int
+  DesignationName String           @db.VarChar(256)
+  Description     String?          @db.VarChar(500)
+  Created         DateTime         @default(now(), map: "DF__CompanyDe__Creat__3D5E1FD2") @db.DateTime
+  CreatedBy       String           @db.VarChar(256)
+  LastModified    DateTime?        @db.DateTime
+  LastModifiedBy  String?          @db.VarChar(256)
+  CompanyMaster   CompanyMaster    @relation(fields: [CompanyMasterId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_CompanyDesignationsMaster_CompanyMaster")
+  EmployeeMaster  EmployeeMaster[]
+
+  @@unique([DesignationName, CompanyMasterId], map: "UQ_CompanyDesignationsMaster_DesignationName_CompanyId")
+}
+
+model CompanyMaster {
+  Id                        Int                         @id(map: "PK__CompanyM__3214EC076530E9CD") @default(autoincrement())
+  CompanyName               String                      @unique(map: "UQ_CompanyMaster_CompanyName") @db.VarChar(256)
+  ContactPerson             String                      @db.VarChar(256)
+  Address1                  String                      @db.VarChar(1000)
+  Address2                  String?                     @db.VarChar(1000)
+  City                      String?                     @db.VarChar(100)
+  State                     String?                     @db.VarChar(100)
+  Zip                       String?                     @db.VarChar(20)
+  ContactPersonEmail        String                      @db.VarChar(250)
+  ContactPersonPhone        BigInt?
+  Website                   String?                     @db.NVarChar(4000)
+  Created                   DateTime                    @default(now(), map: "DF__CompanyMa__Creat__34C8D9D1") @db.DateTime
+  CreatedBy                 String                      @db.VarChar(256)
+  LastModified              DateTime?                   @db.DateTime
+  LastModifiedBy            String?                     @db.VarChar(256)
+  ApplicationUser           ApplicationUser[]
+  CompanyDepartmentMaster   CompanyDepartmentMaster[]
+  CompanyDesignationsMaster CompanyDesignationsMaster[]
+  EmployeeMaster            EmployeeMaster[]
+  ModulesMaster             ModulesMaster[]
+  ProjectMaster             ProjectMaster[]
+  TasksMaster               TasksMaster[]
+}
+
+model Departments {
+  Id             Int       @id(map: "PK__Departme__3214EC07B5972DED") @default(autoincrement())
+  DepartmentName String    @unique(map: "UQ_Departments_Name") @db.VarChar(256)
+  Description    String?   @db.VarChar(500)
+  Created        DateTime  @default(now(), map: "DF__Departmen__Creat__2D27B809") @db.DateTime
+  CreatedBy      String    @db.VarChar(256)
+  LastModified   DateTime? @db.DateTime
+  LastModifiedBy String?   @db.VarChar(256)
+}
+
+model Designations {
+  Id              Int       @id(map: "PK__Designat__3214EC07A3275C65") @default(autoincrement())
+  DesignationName String    @unique(map: "UQ_Designations_Name") @db.VarChar(256)
+  Description     String?   @db.VarChar(500)
+  Created         DateTime  @default(now(), map: "DF__Designati__Creat__30F848ED") @db.DateTime
+  CreatedBy       String    @db.VarChar(256)
+  LastModified    DateTime? @db.DateTime
+  LastModifiedBy  String?   @db.VarChar(256)
+}
+
+model EmployeeMaster {
+  Id                          Int                       @id(map: "PK__Employee__3214EC070DE4CB88") @default(autoincrement())
+  CompanyMasterId             Int
+  EmployeeName                String                    @db.VarChar(256)
+  CompanyDepartmentMasterId   Int
+  CompanyDesignationsMasterId Int
+  Email                       String                    @db.VarChar(256)
+  ReportingTo                 String                    @db.VarChar(256)
+  Created                     DateTime                  @default(now(), map: "DF__EmployeeM__Creat__534D60F1") @db.DateTime
+  CreatedBy                   String                    @db.VarChar(256)
+  LastModified                DateTime?                 @db.DateTime
+  LastModifiedBy              String?                   @db.VarChar(256)
+  CompanyMaster               CompanyMaster             @relation(fields: [CompanyMasterId], references: [Id], onUpdate: NoAction, map: "FK_EmployeeMaster_CompanyMaster")
+  CompanyDesignationsMaster   CompanyDesignationsMaster @relation(fields: [CompanyDesignationsMasterId], references: [Id], onUpdate: NoAction, map: "FK_EmployeeMaster_ModulesMaster")
+  CompanyDepartmentMaster     CompanyDepartmentMaster   @relation(fields: [CompanyDepartmentMasterId], references: [Id], onUpdate: NoAction, map: "FK_EmployeeMaster_ProjectMaster")
+}
+
+model ModulesMaster {
+  Id                Int           @id(map: "PK__ModulesM__3214EC0712EF3BFF") @default(autoincrement())
+  ProjectMasterId   Int
+  CompanyMasterId   Int
+  ModuleName        String        @db.VarChar(256)
+  ModuleDescription String?       @db.VarChar(500)
+  StartDate         DateTime      @default(now(), map: "DF__ModulesMa__Start__47DBAE45") @db.Date
+  EndDate           DateTime?     @db.Date
+  Created           DateTime      @default(now(), map: "DF__ModulesMa__Creat__48CFD27E") @db.DateTime
+  CreatedBy         String        @db.VarChar(256)
+  LastModified      DateTime?     @db.DateTime
+  LastModifiedBy    String?       @db.VarChar(256)
+  CompanyMaster     CompanyMaster @relation(fields: [CompanyMasterId], references: [Id], onUpdate: NoAction, map: "FK_ModulesMaster_CompanyMaster")
+  ProjectMaster     ProjectMaster @relation(fields: [ProjectMasterId], references: [Id], onUpdate: NoAction, map: "FK_ModulesMaster_ProjectMaster")
+  TasksMaster       TasksMaster[]
+}
+
+model ProjectMaster {
+  Id                 Int             @id(map: "PK__ProjectM__3214EC07533125EF") @default(autoincrement())
+  CompanyMasterId    Int
+  ProjectCode        String          @unique(map: "UQ__ProjectM__2F3A4948FDA243D4") @db.VarChar(256)
+  ProjectName        String          @unique(map: "UQ__ProjectM__BCBE781CBEF84E98") @db.VarChar(500)
+  ProjectDescription String          @db.VarChar(500)
+  StartDate          DateTime        @default(now(), map: "DF__ProjectMa__Start__4316F928") @db.Date
+  EndDate            DateTime?       @db.Date
+  Created            DateTime        @default(now(), map: "DF__ProjectMa__Creat__440B1D61") @db.DateTime
+  CreatedBy          String          @db.VarChar(256)
+  LastModified       DateTime?       @db.DateTime
+  LastModifiedBy     String?         @db.VarChar(256)
+  ModulesMaster      ModulesMaster[]
+  CompanyMaster      CompanyMaster   @relation(fields: [CompanyMasterId], references: [Id], onUpdate: NoAction, map: "FK_ProjectMaster_CompanyMaster")
+  TasksMaster        TasksMaster[]
+}
+
+model TasksMaster {
+  Id              Int           @id(map: "PK__TasksMas__3214EC070FA5D45A") @default(autoincrement())
+  CompanyMasterId Int
+  ProjectMasterId Int
+  ModulesMasterId Int
+  TaskName        String        @db.VarChar(256)
+  TaskDescription String?       @db.VarChar(500)
+  TaskOwner       String        @db.VarChar(256)
+  EstimatedHours  Int
+  Created         DateTime      @default(now(), map: "DF__TasksMast__Creat__6EF57B66") @db.DateTime
+  CreatedBy       String        @db.VarChar(256)
+  LastModified    DateTime?     @db.DateTime
+  LastModifiedBy  String?       @db.VarChar(256)
+  CompanyMaster   CompanyMaster @relation(fields: [CompanyMasterId], references: [Id], onUpdate: NoAction, map: "FK_TasksMaster_CompanyMaster")
+  ModulesMaster   ModulesMaster @relation(fields: [ModulesMasterId], references: [Id], onUpdate: NoAction, map: "FK_TasksMaster_ModulesMaster")
+  ProjectMaster   ProjectMaster @relation(fields: [ProjectMasterId], references: [Id], onUpdate: NoAction, map: "FK_TasksMaster_ProjectMaster")
+
+  @@unique([TaskName, ModulesMasterId], map: "UQ_TasksMaster_TaskName_ModulesMasterId")
+}

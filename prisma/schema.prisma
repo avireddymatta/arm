@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model ApplicationUser {
+  Id           Int      @id(map: "PK__ApplicationUser__Id") @default(autoincrement())
+  UserName     String   @unique(map: "UQ_Application_UserName") @db.VarChar(256)
+  FirstName    String   @db.VarChar(256)
+  LastName     String   @db.VarChar(256)
+  MiddleName   String?  @db.VarChar(256)
+  MobileNumber String   @db.VarChar(50)
+  Gender       String   @db.VarChar(6)
+  DateOfBirth  DateTime @db.DateTime
+  BloodGroup   String   @db.VarChar(3)
+  Address1     String   @db.VarChar(700)
+  Address2     String?  @db.VarChar(700)
+  City         String?  @db.VarChar(100)
+  State        String?  @db.VarChar(100)
+  PostalCode   Int?
+  Country      String?  @db.VarChar(100)
+
+  ApplicationUserMembership ApplicationUserMembership?
+  Tasks                     Tasks[]
+}
+
+model ApplicationUserMembership {
+  Id                      Int             @id(map: "PK__ApplicationUserMembership__Id") @default(autoincrement())
+  AppilcationUserId       Int             @unique
+  IsActive                Boolean         @default(false, map: "DF__Applicati__IsAct__68487DD7")
+  Password                String          @db.NVarChar(250)
+  PasswordSalt            String          @db.NVarChar(250)
+  SecurityQuestion        String?         @db.VarChar(500)
+  SecurityPassword        String?         @db.VarChar(500)
+  FirstTimeLogIn          Boolean         @default(true, map: "DF__Applicati__First__693CA210")
+  LockedOut               Boolean         @default(false, map: "DF__Applicati__Locke__6A30C649")
+  LastLoginDate           DateTime?       @db.DateTime
+  LastPasswordChangedDate DateTime?       @db.DateTime
+  LastLockOutDate         DateTime?       @db.DateTime
+  ApplicationUser         ApplicationUser @relation(fields: [AppilcationUserId], references: [Id], onDelete: Cascade, map: "FK_ApplicationUserMembership_UserId")
+}
+
+model Tasks {
+  Id              Int             @id(map: "PK__Tasks__Id") @default(autoincrement())
+  UserId          Int
+  Name            String          @db.VarChar(256)
+  Status          String          @db.VarChar(100)
+  Description     String          @db.VarChar(1000)
+  CreatedAt       DateTime        @default(now(), map: "DF__Tasks__CreatedAt__36B12243") @db.DateTime
+  ApplicationUser ApplicationUser @relation(fields: [UserId], references: [Id], onDelete: Cascade, map: "FK_Tasks_User")
+
+  @@unique([Name, UserId], map: "UQ_Tasks_Name_User")
+}
