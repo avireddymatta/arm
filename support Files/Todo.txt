@@ -1,0 +1,6 @@
+1# Generic layout with route protection and singOut button
+2# API Unique and Constraints validations
+3# Build API for one screen
+4# Show Progress at UI 
+    a) On dataLoad
+    b) On Button Click API Event

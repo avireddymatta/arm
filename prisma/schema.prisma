@@ -10,6 +10,7 @@ datasource db {
 model ApplicationUser {
   Id           Int      @id(map: "PK__ApplicationUser__Id") @default(autoincrement())
   UserName     String   @unique(map: "UQ_Application_UserName") @db.VarChar(256)
+  Email        String   @unique(map: "UQ_Application_Email")  @db.VarChar(256)
   FirstName    String   @db.VarChar(256)
   LastName     String   @db.VarChar(256)
   MiddleName   String?  @db.VarChar(256)

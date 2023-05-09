@@ -6,6 +6,8 @@ npx prisma migrate dev --name somenameofmigration
 
 npx prisma format ( fixes any model issues in schema.prisma)
 
+npx prisma generate 
+
 model ApplicationUser {
   Id                        Int                         @id(map: "PK__ApplicationUser__Id") @default(autoincrement())
   CompanyId                 Int

@@ -1,0 +1,146 @@
+.weeklycalendarheader {
+    display: flex;
+    width: 1050px;
+}
+
+.weeklyheaderhour {
+    width: 70px;
+    height: 60px;
+    display: flex;
+    background-color: #eeeeee;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #DADCE0;
+}
+
+.weeklyheader {
+    width: 140px;
+    height: 60px;
+    display: flex;
+    background-color: #eeeeee;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #DADCE0;
+}
+
+.weeklyheadercontent {}
+
+
+.weeklycalendarbody {
+    display: flex;
+    width: 1050px;
+
+}
+
+.weeklybodyhour {
+    border: 1px solid #DADCE0;
+    width: 70px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.weeklybody {
+    border: 1px solid #DADCE0;
+    width: 140px;
+    height: 60px;
+    display: flex;
+}
+
+.weeklybodycontent {
+    display: grid;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    position: relative;
+}
+
+.weeklybodycontentdiv:hover {
+    background-color: lightgray;
+    cursor: pointer;
+
+}
+
+
+
+.appcalendar {
+    display: grid;
+    grid-template-columns: repeat(7, 150px);
+    grid-template-rows: repeat(5, 120px);
+}
+
+
+.day {
+    border-color: #DADCE0;
+    border-style: solid;
+    padding: 10px;
+}
+
+.daycontent {}
+
+.appcalendarheader {
+    display: grid;
+    grid-template-columns: repeat(7, 150px);
+    grid-template-rows: repeat(1, 60px);
+}
+
+.dayheader {
+    border: 1px solid #DADCE0;
+    background-color: #eeeeee;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.dayheadercontent {}
+
+.meetingContent {
+    position: absolute;
+    width: 100%;
+    background-color: lightblue;
+    border: 1px solid lightblue;
+    z-index: 20;
+}
+
+
+.calendarbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1050px;
+    margin-bottom: 1.5rem;
+    height: 36px;
+}
+
+.calendarbaricongroup {
+    display: flex;
+    gap: 10px;
+}
+
+.calendarbaricon{
+    padding: 6px 12px;
+    background-color: #f1f1f1;
+    color: #797979;
+    height: inherit;
+    border: none;
+    
+}
+
+.calendarbarbuttongroup {
+    display: flex;
+    gap: 10px;
+}
+
+.calendarbarbutton{
+    padding: 6px 12px;
+    background-color: #f1f1f1;
+    color: #797979;
+    cursor: pointer;
+    height: inherit;
+    border-radius: 3px;
+    border: none;
+}
+
+.inactiveday {
+    opacity: 0.4;
+}
