@@ -1,4 +1,4 @@
-import { IReactSelect } from "@/lib/types_interfaces/helper";
+import { IReactSelect } from "@/app/types_interfaces/helper";
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import Select from "react-select";

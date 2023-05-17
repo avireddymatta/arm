@@ -4,12 +4,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { TypeOf } from "zod";
-import { IReactSelect } from "@/lib/types_interfaces/helper";
-import InputHookControl from "@/lib/components/_shared/controls/InputHookControl";
-import DateHookControl from "@/lib/components/_shared/controls/DateHookControl";
-import SelectHookControl from "@/lib/components/_shared/controls/SelectHookControl";
-import CheckboxHookControl from "@/lib/components/_shared/controls/CheckboxHookControl";
-import RadioHookControl from "@/lib/components/_shared/controls/RadioHookControl";
+import { IReactSelect } from "@/app/types_interfaces/helper";
+import InputHookControl from "@/app/components/shared/InputHookControl";
+import DateHookControl from "@/app/components/shared/DateHookControl";
+import SelectHookControl from "@/app/components/shared/SelectHookControl";
+import CheckboxHookControl from "@/app/components/shared/CheckboxHookControl";
+import RadioHookControl from "@/app/components/shared/RadioHookControl";
 
 
 const schema = z.object({

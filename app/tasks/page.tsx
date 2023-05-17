@@ -1,27 +1,33 @@
-import { prisma } from "@/lib/utils/prisma";
-import UserTask from "./userTask";
+import type { Tasks } from "@prisma/client";
+import { prisma } from "../utils/prisma";
+import getCurrentUser from "../utils/getCurrentUser";
 
-const Task = async () => {
+const TaskList = async() => {
 
-    // const session = await getServerSession(authOptions);
-  let tasks = await prisma.tasks.findMany();
-  return (
-    <div className="flex gap-2 p-6">
-        <UserTask />
-        {
-            tasks.length > 0 && (
-                tasks.map(task => (
-                    <div key={task.Id} className="grid gap-3 bg-white rounded-lg shadow-lg p-6">
-                        <span>{task.Name}-{task.Description}</span>
-                        <span>Status: {task.Status ? "Completed": "InProgress"}</span>
-                        <span>{task.CreatedAt.toDateString()}</span>
+    const currentUser = await getCurrentUser();
+    const tasksList = await prisma.tasks.findMany({
+        where: {UserId: currentUser?.Id}
+    });
+
+    return (
+        <div className="flex gap-6 flex-wrap">
+            {
+                tasksList && tasksList.map(task => {
+                    return <div key={task.Id} className="grid items-center justify-between grid-rows-2  rounded-lg shadow-lg bg-white p-5">
+                        <div className="flex justify-between items-center gap-10 mb-4">
+                            <span>{task.Name} </span>
+                            <span>{task.Status} </span>
+                        </div>
+                        <div>
+                            {task.Description}
+                        </div>
                     </div>
-                ))
-            )
-        }
-    </div>
-  );
+                })
+            }
+        </div>
+    )
+
 }
 
 
-export default Task;
+export default TaskList;

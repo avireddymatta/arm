@@ -4,10 +4,10 @@ import { signIn } from "next-auth/react";
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import InputHookControl from "@/lib/components/_shared/controls/InputHookControl";
+import InputHookControl from "@/app/components/shared/InputHookControl";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import DateHookControl from "@/lib/components/_shared/controls/DateHookControl";
+import DateHookControl from "@/app/components/shared/DateHookControl";
 
 const schema = z.object({
     Name: z.string().nonempty("UserName is required."),

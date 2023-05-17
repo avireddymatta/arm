@@ -1,6 +1,6 @@
 npx prisma init --datasource-provider
 
-npx prisma db pull
+npx prisma db pull/push
 
 npx prisma migrate dev --name somenameofmigration
 

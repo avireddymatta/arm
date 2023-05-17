@@ -8,23 +8,22 @@ datasource db {
 }
 
 model ApplicationUser {
-  Id           Int      @id(map: "PK__ApplicationUser__Id") @default(autoincrement())
-  UserName     String   @unique(map: "UQ_Application_UserName") @db.VarChar(256)
-  Email        String   @unique(map: "UQ_Application_Email")  @db.VarChar(256)
-  FirstName    String   @db.VarChar(256)
-  LastName     String   @db.VarChar(256)
-  MiddleName   String?  @db.VarChar(256)
-  MobileNumber String   @db.VarChar(50)
-  Gender       String   @db.VarChar(6)
-  DateOfBirth  DateTime @db.DateTime
-  BloodGroup   String   @db.VarChar(3)
-  Address1     String   @db.VarChar(700)
-  Address2     String?  @db.VarChar(700)
-  City         String?  @db.VarChar(100)
-  State        String?  @db.VarChar(100)
-  PostalCode   Int?
-  Country      String?  @db.VarChar(100)
-
+  Id                        Int                        @id(map: "PK__ApplicationUser__Id") @default(autoincrement())
+  UserName                  String                     @unique(map: "UQ_Application_UserName") @db.VarChar(256)
+  FirstName                 String                     @db.VarChar(256)
+  LastName                  String                     @db.VarChar(256)
+  MiddleName                String?                    @db.VarChar(256)
+  MobileNumber              String                     @db.VarChar(50)
+  Gender                    String                     @db.VarChar(6)
+  DateOfBirth               DateTime                   @db.DateTime
+  BloodGroup                String                     @db.VarChar(3)
+  Address1                  String                     @db.VarChar(700)
+  Address2                  String?                    @db.VarChar(700)
+  City                      String?                    @db.VarChar(100)
+  State                     String?                    @db.VarChar(100)
+  PostalCode                Int?
+  Country                   String?                    @db.VarChar(100)
+  Email                     String                     @unique(map: "UQ_Application_Email") @db.VarChar(256)
   ApplicationUserMembership ApplicationUserMembership?
   Tasks                     Tasks[]
 }

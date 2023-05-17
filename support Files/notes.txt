@@ -1,0 +1,5 @@
+npm i @hookform/resolvers @prisma/client @tanstack/match-sorter-utils @tanstack/react-query @tanstack/react-table @types/react-table bcryptjs daisyui next-auth react-flatpickr react-hook-form react-icons react-query react-select react-toastify superjson zod zustand
+
+npm i -D @types/bcryptjs @types/react-flatpickr prisma ts-node
+
+npm i date-fns axios

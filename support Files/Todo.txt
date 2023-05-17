@@ -1,6 +1,8 @@
 1# Generic layout with route protection and singOut button
-2# API Unique and Constraints validations
-3# Build API for one screen
+2# API Unique and Constraints validations: Added ErrorHandler Function in API folder
+3# Build API for one screen atleast: Built API code for Tasks in API folder, UI pending, Tested API URLS
 4# Show Progress at UI 
     a) On dataLoad
     b) On Button Click API Event
+5# Access & Refresh Token
+6# Forgot Password

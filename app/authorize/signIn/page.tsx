@@ -5,9 +5,9 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import InputHookControl from "@/lib/components/_shared/controls/InputHookControl";
 import Link from "next/link";
 import { toast } from 'react-toastify';
+import InputHookControl from "@/app/components/shared/InputHookControl";
 
 const schema = z.object({
     Email: z.string().email(),

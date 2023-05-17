@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/utils/prisma";
+import { prisma } from "@/app/utils/prisma";
 import { genSaltSync, hash } from "bcryptjs";
 import { NextResponse } from "next/server";
 

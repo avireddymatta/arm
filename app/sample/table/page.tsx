@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactTable } from "@/lib/components/_shared/controls/table/ReactTable";
+import { ReactTable } from "@/app/components/shared/table/ReactTable";
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { SyntheticEvent, useEffect, useState } from "react"
 
